@@ -182,3 +182,17 @@
     border-right-color: var(--border);
   }
 }
+
+/* small custom helpers for app */
+.glass {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
+}
+
+.card-fade {
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.card-fade:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(16,24,40,0.08);
+}

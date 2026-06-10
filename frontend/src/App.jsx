@@ -43,65 +43,63 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 p-8">
-      <div className="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-2xl">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white py-12 px-6">
+      <div className="max-w-4xl mx-auto bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
 
-        <h1 className="text-4xl text-center font-bold mb-6 text-blue-700">
-          Sistema de Tarefas
-        </h1>
+        <header className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-extrabold text-slate-800">Sistema de Tarefas</h1>
+            <p className="text-sm text-slate-500">Organize suas tarefas de forma simples e rápida</p>
+          </div>
 
-        <form
-          onSubmit={criarTarefa}
-          className="flex flex-col gap-4 mb-6"
-        >
-          <input
-            type="text"
-            placeholder="Título"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+          <div className="text-right text-sm text-slate-500">v1.0</div>
+        </header>
 
-          <input
-            type="text"
-            placeholder="Descrição"
-            value={descricao}
-            onChange={(e) => setDescricao(e.target.value)}
-            className="border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+        <section className="mb-8">
+          <form onSubmit={criarTarefa} className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <input
+              type="text"
+              placeholder="Título"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+              className="col-span-1 md:col-span-1 border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
 
-          <button
-            className="bg-blue-500 hover:bg-blue-600 transition text-white p-3 rounded-lg font-semibold"
-          >
-            Criar tarefa
-          </button>
-        </form>
+            <input
+              type="text"
+              placeholder="Descrição"
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+              className="col-span-1 md:col-span-1 border p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            />
 
-        <div className="flex flex-col gap-4">
-          {tarefas.map((tarefa) => (
-            <div
-              key={tarefa.id}
-              className="bg-gray-50 border border-gray-200 p-4 rounded-xl flex justify-between items-center shadow"
-            >
-              <div>
-                <h2 className="font-bold">
-                  {tarefa.titulo}
-                </h2>
-
-                <p>
-                  {tarefa.descricao}
-                </p>
-              </div>
-
-              <button
-                onClick={() => deletarTarefa(tarefa.id)}
-                className="bg-red-500 hover:bg-red-600 transition text-white px-4 py-2 rounded-lg"
-              >
-                Excluir
-              </button>
+            <div className="col-span-1 md:col-span-1 flex items-center">
+              <button className="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-3 px-4 rounded-lg font-semibold shadow">Criar tarefa</button>
             </div>
-          ))}
-        </div>
+          </form>
+        </section>
+
+        <section>
+          <div className="grid grid-cols-1 gap-4">
+            {tarefas.length === 0 ? (
+              <div className="text-center text-slate-500 py-12">Nenhuma tarefa cadastrada</div>
+            ) : (
+              tarefas.map((tarefa) => (
+                <div key={tarefa.id} className="flex items-center justify-between gap-4 p-4 bg-gradient-to-r from-white to-slate-50 rounded-xl border border-gray-100 shadow-sm">
+                  <div>
+                    <h2 className="font-semibold text-slate-800">{tarefa.titulo}</h2>
+                    <p className="text-sm text-slate-500">{tarefa.descricao}</p>
+                    <div className="text-xs text-slate-400 mt-1">Criada em: {new Date(tarefa.createdAt).toLocaleString()}</div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button onClick={() => deletarTarefa(tarefa.id)} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Excluir</button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </section>
 
       </div>
     </div>
