@@ -196,23 +196,3 @@
   transform: translateY(-4px);
   box-shadow: 0 10px 25px rgba(16,24,40,0.08);
 }
-
-/* Hero overlay improvements */
-.hero-banner {
-  position: relative;
-}
-.hero-banner img {
-  display: block;
-}
-.hero-banner .overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(2,6,23,0.35), rgba(2,6,23,0.05));
-}
-
-/* responsive tweaks */
-@media (max-width: 640px) {
-  .hero-banner h1 {
-    font-size: 1.25rem;
-  }
-}
