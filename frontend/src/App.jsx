@@ -15,21 +15,27 @@ function App() {
   async function criarTarefa(e) {
     e.preventDefault();
 
-    await api.post('/tarefas', {
-      titulo,
-      descricao
-    });
+    try {
+      await api.post('/tarefas', { titulo, descricao });
 
-    setTitulo('');
-    setDescricao('');
+      setTitulo('');
+      setDescricao('');
 
-    carregarTarefas();
+      carregarTarefas();
+    } catch (error) {
+      console.error('Erro ao criar tarefa:', error);
+      alert('Erro ao criar tarefa. Verifique o servidor.');
+    }
   }
 
   async function deletarTarefa(id) {
-    await api.delete(`/tarefas/${id}`);
-
-    carregarTarefas();
+    try {
+      await api.delete(`/tarefas/${id}`);
+      carregarTarefas();
+    } catch (error) {
+      console.error('Erro ao deletar tarefa:', error);
+      alert('Erro ao deletar tarefa. Verifique o servidor.');
+    }
   }
 
   useEffect(() => {
