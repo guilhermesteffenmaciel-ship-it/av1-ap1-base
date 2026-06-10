@@ -7,9 +7,23 @@ function App() {
   const [descricao, setDescricao] = useState('');
 
   async function carregarTarefas() {
-    const response = await api.get('/tarefas');
+    try {
+      const response = await api.get('/tarefas');
 
-    setTarefas(response.data);
+      // If API returns an error object, show it and keep tarefas as array
+      if (response.data && !Array.isArray(response.data)) {
+        console.error('API error:', response.data);
+        alert(response.data.error || 'Erro ao carregar tarefas');
+        setTarefas([]);
+        return;
+      }
+
+      setTarefas(response.data || []);
+    } catch (error) {
+      console.error('Erro ao carregar tarefas:', error);
+      alert('Erro ao carregar tarefas. Verifique o servidor.');
+      setTarefas([]);
+    }
   }
 
   async function criarTarefa(e) {
